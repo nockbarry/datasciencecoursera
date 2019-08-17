@@ -63,7 +63,95 @@ x <- c("a","b","c","d","a")
 x[1]
 x[2]
 x[1:4]
-x{x>"a"}
+x[x>"a"]
 u <- x > "a" 
 u
+#lists
+x <- list(foo = 1:4,bar = 0.6)
+x[1] #gives list
+x[[1]] # gives sequence
 
+x$bar # gives element with name bar, dont have to remember postion of object, only name
+x[["bar"]] # gives element as sequence
+x["bar"] #gives element as original object, in this case a list
+
+x<- list(foo = 1:4, bar = .6, baz = "hello")
+x[c(1,3)] # gets 1st and 3rd element, can only use [  or to get multiple elements
+name <- "foo"
+x[[name]] # works
+x$name # dosent work
+x$foo # works
+# [[ can take an integer sequence
+x <- list(a = list(10,12,14),b = c(3.14, 2.8))
+x[[c(1,3)]]
+x[[1]][[3]]#same as above
+x[[c(2,1)]]
+
+#matricies, similar to matlab, using single brackets instead of parenthises
+x <- matrix(1:6,2,3)
+x[1,2] #gives a 1x1 vector, can use drop = false in [] to get a matrix
+x[1, ] #gives first row
+x[1, , drop = FALSE] # gives matrix of first row
+
+#partial matching, msotly useful in command line
+x <- list(aardvark = 1:5)
+x$a # finds any name with an a
+x[["a" , exact = FALSE]] # same thing as above
+
+#removing NA values
+x <- c(1,2,NA,4,NA,5)
+bad <- is.na(x)
+x[!bad] #removes bad indacted  elements ! is caleld bang operator
+x <- c(1,2,NA,4,NA,5)
+y <- c("a","b",NA, "d", NA, "f")
+good <- complete.cases(x,y) # also works for data frams
+good
+x[good]
+y[good]
+
+#vectorized operations
+x <- 1:4; y<- 6:9
+x+y #adds elements
+x>2
+x >= 2
+y == 8
+x*y #element by element
+x/y #element by element
+x <- matrix (1:4, 2, 2); t <- matrix(rep(10,4),2,2) #repeat 10 4 tiems
+x * t # elementwise
+x %*% t # true matrix multiplication
+
+#quiz code
+#extract last 2 rows of data set named data
+data <- read.csv("hw1_data.csv")
+data[(dim(data)[1]-1):dim(data)[1], ]
+bad <- is.na(data[ , "Ozone"])
+
+#How many NA values in Ozone
+Ozone <- data[ , "Ozone"]
+Ozone_trim <- Ozone[!bad]
+length(Ozone)-length(Ozone_trim)
+#Extract the subset of rows of the data frame where
+#Ozone values are above 31 and Temp values are above 90.
+#What is the mean of Solar.R in this subset?
+good <- complete.cases(data[ , "Ozone"])
+data_o <- data[good , ] # trimmed na values for ozone
+Ozone_rows <- 31 < data_o[ , "Ozone"]
+data_or <- data_o[Ozone_rows, ]
+good2 <- complete.cases(data_or[ ,"Solar.R"])
+data_s <- data_or[good2 , ]
+Solar_rows <- 90 < data_s[ , "Temp"]
+data_sr <- data_s[Solar_rows, ]
+mean(data_sr[ , "Solar.R"])
+#What is the mean of "Temp" when "Month" is equal to 6? 
+month <- data[ , "Month" ]
+month6 <- month == 6
+datamonth <- data[month6 , ]
+mean(datamonth[ , "Temp"])
+#
+month <- data[ , "Month" ]
+month5 <- month == 5
+datamonth5 <- data[month5 , ]
+good <- complete.cases(datamonth5[ , "Ozone"])
+data_m5trim <- datamonth5[good , ] # trimmed na values for ozone
+max(data_m5trim[ , "Ozone"])
