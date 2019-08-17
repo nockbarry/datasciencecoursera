@@ -59,6 +59,11 @@ close(con)
 # subsetting, [ always returns objects of the same class as original
 # [[ extracts elements of a list or data frame, can only be used on a single elemnt, and the class will not neeccesarily be t a list or data fram
 # $ is used to extract elements of a lsit or data fram by name
-
-
+x <- c("a","b","c","d","a")
+x[1]
+x[2]
+x[1:4]
+x{x>"a"}
+u <- x > "a" 
+u
 
