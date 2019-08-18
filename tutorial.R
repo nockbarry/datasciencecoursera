@@ -155,3 +155,5 @@ datamonth5 <- data[month5 , ]
 good <- complete.cases(datamonth5[ , "Ozone"])
 data_m5trim <- datamonth5[good , ] # trimmed na values for ozone
 max(data_m5trim[ , "Ozone"])
+
+#Week 2
