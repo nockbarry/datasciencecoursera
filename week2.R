@@ -56,5 +56,16 @@ while(z >= 3 && z <= 10) {
       }
 }
 plot(zc, ,"l")
+#
+for(i in 1:100) {
+    if(i <= 20) {
+      ## Skip the first 20 iterations
+      next        
+    }
+  ## Do something here
+}
+
+#Functions
+
  
 
